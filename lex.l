@@ -18,9 +18,9 @@
 "return"            return RETURN;
 
 
-[0-9]|[1-9][0-9]*            return INTEGER;
-[0-9]|[1-9][0-9]*[.][0-9]+   { printf("Found a float: %s\n", yytext); }
-[a-zA-Z][a-zA-Z|0-9]*        return ID;
+0|[1-9][0-9]*               return INTEGER;
+(0|[1-9][0-9]*)\.[0-9]+     return FLOAT;
+[a-zA-Z][a-zA-Z0-9]*        return ID;
 .        { /* Ignore other characters */ }
 %%
 

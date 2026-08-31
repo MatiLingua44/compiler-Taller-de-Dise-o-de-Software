@@ -19,6 +19,7 @@ void yyerror(const char *s);
 %token RETURN
 
 %token INTEGER
+%token FLOAT
 %token ID
 
 %left SUMA
@@ -32,7 +33,7 @@ input:
     ;
 
 main:
-    expresion '\n'
+    expresion PUNTO_COMA
     | asignacion
     | declaracion
     ;
@@ -41,8 +42,9 @@ expresion:
     expresion SUMA expresion                        { printf("Suma\n"); }
     | expresion MULTIPLICACION expresion            { printf("Multiplicacion\n"); }
     | PARENTESIS_ABRE expresion PARENTESIS_CIERRA
-    | INTEGER
-    | ID
+    | INTEGER                                       { printf("Integer\n"); }
+    | FLOAT                                         { printf("Float\n"); }
+    | ID                                            { printf("ID\n"); }
     ;
 
 asignacion:

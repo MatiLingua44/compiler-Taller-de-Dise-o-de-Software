@@ -1,0 +1,9 @@
+# Archivos generados por Bison y Flex
+bison.tab.c
+bison.tab.h
+lex.yy.c
+
+# Ejecutable
+compilador
+*.exe
+*.o
