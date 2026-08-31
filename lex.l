@@ -1,12 +1,15 @@
 %{
 #include <stdio.h>
+#include <string.h>
 #include "bison.tab.h"
 %}
+
+%option noyywrap
 
 %% 
 "main"              return MAIN;
 "True"|"False"      return BOOLEAN;
-"int"|"bool"|"void" return TYPE;
+"int"|"bool"|"void" { yylval.texto = strdup(yytext); return TYPE; }
 "+"                 return SUMA;
 "*"                 return MULTIPLICACION;
 "="                 return IGUAL;
@@ -18,20 +21,8 @@
 "return"            return RETURN;
 
 
-0|[1-9][0-9]*               return INTEGER;
-(0|[1-9][0-9]*)\.[0-9]+     return FLOAT;
-[a-zA-Z][a-zA-Z0-9]*        return ID;
+0|[1-9][0-9]*               { yylval.entero = atoi(yytext); return INTEGER; }
+(0|[1-9][0-9]*)\.[0-9]+     { yylval.flotante = atof(yytext); return FLOAT; }
+[a-zA-Z][a-zA-Z0-9]*        { yylval.texto = strdup(yytext); return ID; }
 .        { /* Ignore other characters */ }
 %%
-
-//int main() {
-//    yyin = fopen("texto.txt", "r");
-//    yylex();
-//    fclose(yyin);
-    
-//    return 0;
-//}
-
-int yywrap() {
-    return 1;
-}

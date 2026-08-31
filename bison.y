@@ -8,9 +8,16 @@ int yylex(void);
 void yyerror(const char *s);
 %}
 
+%union {
+    int entero;
+    float flotante;
+    char *texto;
+    struct ASTNode *node_val;
+}
+
 %token MAIN
 %token BOOLEAN
-%token TYPE
+%token <texto> TYPE
 %token SUMA MULTIPLICACION
 %token IGUAL
 %token PUNTO_COMA
@@ -18,9 +25,9 @@ void yyerror(const char *s);
 %token CORCHETE_ABRE CORCHETE_CIERRA
 %token RETURN
 
-%token INTEGER
-%token FLOAT
-%token ID
+%token <entero> INTEGER
+%token <flotante> FLOAT
+%token <texto> ID
 
 %left SUMA
 %left MULTIPLICACION
@@ -41,18 +48,19 @@ main:
 expresion:
     expresion SUMA expresion                        { printf("Suma\n"); }
     | expresion MULTIPLICACION expresion            { printf("Multiplicacion\n"); }
-    | PARENTESIS_ABRE expresion PARENTESIS_CIERRA
-    | INTEGER                                       { printf("Integer\n"); }
-    | FLOAT                                         { printf("Float\n"); }
-    | ID                                            { printf("ID\n"); }
+    | PARENTESIS_ABRE expresion PARENTESIS_CIERRA   // { $$ = $2 }
+    | INTEGER                                       { printf("Entero: (%d)\n", $1); }
+    | FLOAT                                         { printf("Flotante (%f)\n", $1); }
+    | ID                                            { printf("ID: (%s)\n", $1); }
     ;
 
 asignacion:
-    ID IGUAL expresion PUNTO_COMA { printf("asignacion"); }
+    ID IGUAL expresion PUNTO_COMA { printf("Asignacion: %s = exp;", $1); }
     ;
 
 declaracion:
-    TYPE ID PUNTO_COMA { printf("declaracion"); }
+    TYPE ID PUNTO_COMA { printf("Declaracion: %s %s;", $1, $2); }
+    | TYPE asignacion { printf("<- Con declaracion"); }
     ;
     
 %%
