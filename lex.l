@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "bison.tab.h"
+#include "ast.h"
 %}
 
 %option noyywrap

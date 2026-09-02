@@ -4,10 +4,28 @@
 #include <string.h>
 #include "ast.h"
 
-ASTNode *create_num_node(int value) {
+ASTNode *create_int_node(int value) {
     ASTNode *node = malloc(sizeof(ASTNode));
-    node->type = NODE_NUM;
-    node->value = value;
+    node->type = NODE_INT;
+    node->simbolo.value.i_val = value;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+ASTNode *create_float_node(float value) {
+    ASTNode *node = malloc(sizeof(ASTNode));
+    node->type = NODE_FLOAT;
+    node->simbolo.value.f_val = value;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+ASTNode *create_id_node(char *value) {
+    ASTNode *node = malloc(sizeof(ASTNode));
+    node->type = NODE_ID;
+    node->simbolo.value.s_val = strdup(value);
     node->left = NULL;
     node->right = NULL;
     return node;
@@ -16,7 +34,16 @@ ASTNode *create_num_node(int value) {
 ASTNode *create_op_node(NodeType type, ASTNode *left, ASTNode *right) {
     ASTNode *node = malloc(sizeof(ASTNode));
     node->type = type;
-    node->value = 0;
+    node->simbolo.value.i_val = 0;
+    node->left = left;
+    node->right = right;
+    return node;
+}
+
+ASTNode *create_asignacion_node(NodeType type, ASTNode *left, ASTNode *right) {
+    ASTNode *node = malloc(sizeof(ASTNode));
+    node->type = type;
+    node->simbolo.value.i_val = 0;
     node->left = left;
     node->right = right;
     return node;
@@ -25,14 +52,27 @@ ASTNode *create_op_node(NodeType type, ASTNode *left, ASTNode *right) {
 void print_ast(ASTNode *node, int depth) {
     if (!node) return;
     for (int i = 0; i < depth; i++) printf("  ");
+
+    if (node->type == NODE_ASIG) {
+        printf("Nodo asignacion\n");
+        print_ast(node->left, 0);
+        print_ast(node->right, 0);
+        return;
+    }
     
-    if (node->type == NODE_NUM) {
-        printf("NUM: %d\n", node->value);
-    } else {
-        char *op = (node->type == NODE_ADD) ? "+" : 
-                   (node->type == NODE_SUB) ? "-" : 
-                   (node->type == NODE_MUL) ? "*" : "/";
-        printf("OP: %s\n", op);
+    if (node->type == NODE_ID) {
+        printf("ID: %s\n", node->simbolo.value.s_val);
+        return;
+    }
+    if (node->type == NODE_FLOAT) {
+        printf("FLOAT: %f\n", node->simbolo.value.f_val);
+        return;
+    }
+    if (node->type == NODE_INT) {
+        printf("INT: %d\n", node->simbolo.value.i_val);
+    }
+    if (node->type == NODE_ADD) {
+        printf("+");
     }
     print_ast(node->left, depth + 1);
     print_ast(node->right, depth + 1);
