@@ -53,18 +53,18 @@ main:
 expresion:
     expresion SUMA expresion                        { $$ = create_op_node(NODE_ADD, $1, $3); } // { printf("Suma\n"); }
     | expresion MULTIPLICACION expresion            { $$ = create_op_node(NODE_MUL, $1, $3); } // { printf("Multiplicacion\n"); }
-    | PARENTESIS_ABRE expresion PARENTESIS_CIERRA   { $$ = $2 }
+    | PARENTESIS_ABRE expresion PARENTESIS_CIERRA   { $$ = $2; }
     | INTEGER                                       { $$ = create_int_node($1); } // { printf("Entero: (%d)\n", $1); }
     | FLOAT                                         { $$ = create_float_node($1); } // { printf("Flotante (%f)\n", $1); }
     | ID                                            { $$ = create_id_node($1); } // { printf("ID: (%s)\n", $1); }
     ;
 
 asignacion:
-    ID IGUAL expresion PUNTO_COMA { $$ = create_asignacion_node(NODE_ASIG, create_id_node($1), $3) } // { printf("Asignacion: %s = exp;", $1); }
+    ID IGUAL expresion PUNTO_COMA { $$ = create_asignacion_node(NODE_ASIG, create_id_node($1), $3); } // { printf("Asignacion: %s = exp;", $1); }
     ;
 
 declaracion:
-    TYPE ID PUNTO_COMA { $$ = create_declaracion_node($1, $2, NULL, NULL) } // { printf("Declaracion: %s %s;", $1, $2); }
+    TYPE ID PUNTO_COMA { $$ = create_declaracion_node($1, $2, NULL, NULL); } // { printf("Declaracion: %s %s;", $1, $2); }
     ;
     
 %%

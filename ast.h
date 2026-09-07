@@ -19,7 +19,7 @@ typedef struct Simbolo {
 typedef struct ASTNode {
     NodeType type;
     // int value;                 // Solo para constantes numéricas
-    struct Simbolo simbolo;
+    Simbolo *simbolo;
     struct ASTNode *left;      // Hijo izquierdo
     struct ASTNode *right;     // Hijo derecho
 } ASTNode;

@@ -4,56 +4,62 @@
 #include <string.h>
 #include "ast.h"
 
-ASTNode *create_int_node(int value) {
+ASTNode *create_ast_node() {
     ASTNode *node = malloc(sizeof(ASTNode));
+    node->simbolo = malloc(sizeof(Simbolo));
+    return node;
+}
+
+ASTNode *create_int_node(int value) {
+    ASTNode *node = create_ast_node();
     node->type = NODE_INT;
-    node->simbolo.value.i_val = value;
+    node->simbolo->value.i_val = value;
     node->left = NULL;
     node->right = NULL;
     return node;
 }
 
 ASTNode *create_float_node(float value) {
-    ASTNode *node = malloc(sizeof(ASTNode));
+    ASTNode *node = create_ast_node();
     node->type = NODE_FLOAT;
-    node->simbolo.value.f_val = value;
+    node->simbolo->value.f_val = value;
     node->left = NULL;
     node->right = NULL;
     return node;
 }
 
 ASTNode *create_id_node(char *value) {
-    ASTNode *node = malloc(sizeof(ASTNode));
+    ASTNode *node = create_ast_node();
     node->type = NODE_ID;
-    node->simbolo.value.s_val = strdup(value);
+    node->simbolo->value.s_val = strdup(value);
     node->left = NULL;
     node->right = NULL;
     return node;
 }
 
 ASTNode *create_op_node(NodeType type, ASTNode *left, ASTNode *right) {
-    ASTNode *node = malloc(sizeof(ASTNode));
+    ASTNode *node = create_ast_node();
     node->type = type;
-    node->simbolo.value.i_val = 0;
+    node->simbolo->value.i_val = 0;
     node->left = left;
     node->right = right;
     return node;
 }
 
 ASTNode *create_asignacion_node(NodeType type, ASTNode *left, ASTNode *right) {
-    ASTNode *node = malloc(sizeof(ASTNode));
+    ASTNode *node = create_ast_node();
     node->type = type;
-    node->simbolo.value.i_val = 0;
+    node->simbolo->value.i_val = 0;
     node->left = left;
     node->right = right;
     return node;
 }
 
 ASTNode *create_declaracion_node(char *type, char *nombre, ASTNode *left, ASTNode *right) {
-    ASTNode *node = malloc(sizeof(ASTNode));
+    ASTNode *node = create_ast_node();
     node->type = NODE_DECL;
-    node->simbolo.type = type;
-    node->simbolo.nombre = nombre;
+    node->simbolo->type = type;
+    node->simbolo->nombre = nombre;
     node->left = left;
     node->right = right;
     return node;
@@ -71,21 +77,22 @@ void print_ast(ASTNode *node, int depth) {
     }
     if (node->type == NODE_DECL) {
         printf("Nodo declaracion\n");
-        printf("type: %s id: %s", node->simbolo.type, node->simbolo.nombre);
+        printf("type: %s id: %s", node->simbolo->type, node->simbolo->nombre);
         return;
     }
     
     
     if (node->type == NODE_ID) {
-        printf("ID: %s\n", node->simbolo.value.s_val);
+        printf("ID: %s\n", node->simbolo->value.s_val);
         return;
     }
     if (node->type == NODE_FLOAT) {
-        printf("FLOAT: %f\n", node->simbolo.value.f_val);
+        printf("FLOAT: %f\n", node->simbolo->value.f_val);
         return;
     }
     if (node->type == NODE_INT) {
-        printf("INT: %d\n", node->simbolo.value.i_val);
+        printf("INT: %d\n", node->simbolo->value.i_val);
+        return;
     }
     if (node->type == NODE_ADD) {
         printf("+");
