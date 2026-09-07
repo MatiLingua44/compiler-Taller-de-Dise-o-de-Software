@@ -49,6 +49,16 @@ ASTNode *create_asignacion_node(NodeType type, ASTNode *left, ASTNode *right) {
     return node;
 }
 
+ASTNode *create_declaracion_node(char *type, char *nombre, ASTNode *left, ASTNode *right) {
+    ASTNode *node = malloc(sizeof(ASTNode));
+    node->type = NODE_DECL;
+    node->simbolo.type = type;
+    node->simbolo.nombre = nombre;
+    node->left = left;
+    node->right = right;
+    return node;
+}
+
 void print_ast(ASTNode *node, int depth) {
     if (!node) return;
     for (int i = 0; i < depth; i++) printf("  ");
@@ -59,6 +69,12 @@ void print_ast(ASTNode *node, int depth) {
         print_ast(node->right, 0);
         return;
     }
+    if (node->type == NODE_DECL) {
+        printf("Nodo declaracion\n");
+        printf("type: %s id: %s", node->simbolo.type, node->simbolo.nombre);
+        return;
+    }
+    
     
     if (node->type == NODE_ID) {
         printf("ID: %s\n", node->simbolo.value.s_val);

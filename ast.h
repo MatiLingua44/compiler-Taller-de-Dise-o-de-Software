@@ -2,7 +2,7 @@
 #ifndef AST_H
 #define AST_H
 
-typedef enum { NODE_INT, NODE_FLOAT, NODE_ID, NODE_ADD, NODE_MUL, NODE_ASIG } NodeType;
+typedef enum { NODE_INT, NODE_FLOAT, NODE_ID, NODE_ADD, NODE_MUL, NODE_ASIG, NODE_DECL } NodeType;
 
 typedef struct Simbolo {
     char *type;
@@ -30,6 +30,7 @@ ASTNode *create_float_node(float value);
 ASTNode *create_id_node(char *value);
 ASTNode *create_op_node(NodeType type, ASTNode *left, ASTNode *right);
 ASTNode *create_asignacion_node(NodeType type, ASTNode *left, ASTNode *right);
+ASTNode *create_declaracion_node(char *type, char *nombre, ASTNode *left, ASTNode *right);
 void print_ast(ASTNode *node, int depth);
 void free_ast(ASTNode *node);
 

@@ -1,2 +1,3 @@
+bool y;
 int b;
 a = 2 + x;

@@ -32,6 +32,7 @@ void yyerror(const char *s);
 
 %type <node> expresion
 %type <node> asignacion
+%type <node> declaracion
 
 %left SUMA
 %left MULTIPLICACION
@@ -46,7 +47,7 @@ input:
 main:
     expresion PUNTO_COMA { print_ast($1, 0); }
     | asignacion         { print_ast($1, 0); }
-    | declaracion
+    | declaracion        { print_ast($1, 0); }
     ;
 
 expresion:
@@ -63,7 +64,7 @@ asignacion:
     ;
 
 declaracion:
-    TYPE ID PUNTO_COMA // { $$ = create_declaracion_node(NODE_DECL, $1, create_id_node()) } // { printf("Declaracion: %s %s;", $1, $2); }
+    TYPE ID PUNTO_COMA { $$ = create_declaracion_node($1, $2, NULL, NULL) } // { printf("Declaracion: %s %s;", $1, $2); }
     ;
     
 %%
