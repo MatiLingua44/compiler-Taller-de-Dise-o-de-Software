@@ -55,8 +55,8 @@ statement_list:
     ;
 
 statement:
-    asignacion         { $$ = $1 }
-    | declaracion      { $$ = $1 }
+    asignacion         { $$ = $1 ;}
+    | declaracion      { $$ = $1 ;}
     ;
 
 expresion:
