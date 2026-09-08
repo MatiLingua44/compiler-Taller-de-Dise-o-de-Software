@@ -1,9 +1,26 @@
 # compiler-Taller-de-Dise-o-de-Software
 
-Cómo compilar:
-- bison -d bison.y
-- flex lex.l
-- gcc main.c bison.tab.c lex.yy.c ast.c -o compilador
+Para correr este proyecto se necesita tener instalado:
 
-Para correr el archivo de prueba:
+- flex
+- bison
+- gcc
+
+
+# windows 
+Abrir la terminal en el path del proyecto y correr el sigiente comando:
+
+- ./compilar
+
+# linux
+Si es la primera vez que se va a compilar el proyecto hay que darle permiso al archivo compilar.sh con el siguiente comando:
+
+- chmod +x compilar.sh
+
+Solamente hay que dar permiso una vez, despues simplemente correr el siguiente comando en la terminal desde la raiz del proyecto:
+
+- ./compilar
+
+# EJECUCION
+Para correr el archivo de prueba, usar el siguiente comando:
 - ./compilador texto.txt
