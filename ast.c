@@ -10,6 +10,14 @@ ASTNode *create_ast_node() {
     return node;
 }
 
+ASTNode *create_seq_node(ASTNode *left, ASTNode *right) {
+    ASTNode *node = create_ast_node();
+    node->type = NODE_SEQ;
+    node->left = left;
+    node->right = right;
+    return node;
+}
+
 ASTNode *create_int_node(int value) {
     ASTNode *node = create_ast_node();
     node->type = NODE_INT;
@@ -77,7 +85,7 @@ void print_ast(ASTNode *node, int depth) {
     }
     if (node->type == NODE_DECL) {
         printf("Nodo declaracion\n");
-        printf("type: %s id: %s", node->simbolo->type, node->simbolo->nombre);
+        printf("type: %s id: %s\n", node->simbolo->type, node->simbolo->nombre);
         return;
     }
     

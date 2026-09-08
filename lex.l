@@ -25,5 +25,6 @@
 0|[1-9][0-9]*               { yylval.entero = atoi(yytext); return INTEGER; }
 (0|[1-9][0-9]*)\.[0-9]+     { yylval.flotante = atof(yytext); return FLOAT; }
 [a-zA-Z][a-zA-Z0-9]*        { yylval.texto = strdup(yytext); return ID; }
+[ \t\n]                     { /* Ignorar espacios */ }
 .        { /* Ignore other characters */ }
 %%

@@ -2,7 +2,7 @@
 #ifndef AST_H
 #define AST_H
 
-typedef enum { NODE_INT, NODE_FLOAT, NODE_ID, NODE_ADD, NODE_MUL, NODE_ASIG, NODE_DECL } NodeType;
+typedef enum { NODE_INT, NODE_FLOAT, NODE_ID, NODE_ADD, NODE_MUL, NODE_ASIG, NODE_DECL, NODE_SEQ } NodeType;
 
 typedef struct Simbolo {
     char *type;
@@ -25,6 +25,8 @@ typedef struct ASTNode {
 } ASTNode;
 
 // Funciones para crear nodos
+ASTNode *create_seq_node(ASTNode *left, ASTNode *right);
+
 ASTNode *create_int_node(int value);
 ASTNode *create_float_node(float value);
 ASTNode *create_id_node(char *value);
