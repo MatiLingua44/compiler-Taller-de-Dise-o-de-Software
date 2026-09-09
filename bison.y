@@ -15,7 +15,7 @@ ASTNode *root = NULL;
 
 %union {
     int entero;
-    float flotante;
+    // float flotante;
     char *texto;
     struct ASTNode *node;
 }
@@ -31,7 +31,7 @@ ASTNode *root = NULL;
 %token RETURN
 
 %token <entero> INTEGER
-%token <flotante> FLOAT
+// %token <flotante> FLOAT
 %token <texto> ID
 
 %type <node> programa statement statement_list
@@ -64,7 +64,7 @@ expresion:
     | expresion MULTIPLICACION expresion            { $$ = create_op_node(NODE_MUL, $1, $3); }
     | PARENTESIS_ABRE expresion PARENTESIS_CIERRA   { $$ = $2; }
     | INTEGER                                       { $$ = create_int_node($1); }
-    | FLOAT                                         { $$ = create_float_node($1); }
+    // | FLOAT                                         { $$ = create_float_node($1); }
     | ID                                            { $$ = create_id_node($1); }
     ;
 

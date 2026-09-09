@@ -3,6 +3,7 @@
 #include "ast.h"
 #include "semantica.h"
 #include "lista.h"
+#include "assembly.h"
 
 // Declaramos los elementos externos de Flex y Bison
 extern int yyparse(void);
@@ -37,6 +38,7 @@ int main(int argc, char *argv[]) {
 
         if ( check_semantics(root) == 1 ) {
             printf("Semantica correcta\n");
+            generate_assembly(root);
         } else {
             printf("Semantica incorrecta\n");
         }

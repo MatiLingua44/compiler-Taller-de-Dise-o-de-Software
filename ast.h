@@ -9,7 +9,7 @@ typedef struct Simbolo {
     char *nombre;
     union {
         int i_val;
-        float f_val;
+        // float f_val;
         char *s_val;
         int b_val; // 0 para false, 1 para true
     } value;
@@ -28,7 +28,7 @@ typedef struct ASTNode {
 ASTNode *create_seq_node(ASTNode *left, ASTNode *right);
 
 ASTNode *create_int_node(int value);
-ASTNode *create_float_node(float value);
+// ASTNode *create_float_node(float value);
 ASTNode *create_id_node(char *value);
 ASTNode *create_op_node(NodeType type, ASTNode *left, ASTNode *right);
 ASTNode *create_asignacion_node(NodeType type, ASTNode *left, ASTNode *right);

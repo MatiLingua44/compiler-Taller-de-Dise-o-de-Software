@@ -29,14 +29,14 @@ ASTNode *create_int_node(int value) {
     return node;
 }
 
-ASTNode *create_float_node(float value) {
-    ASTNode *node = create_ast_node();
-    node->type = NODE_FLOAT;
-    node->simbolo->value.f_val = value;
-    node->left = NULL;
-    node->right = NULL;
-    return node;
-}
+// ASTNode *create_float_node(float value) {
+//     ASTNode *node = create_ast_node();
+//     node->type = NODE_FLOAT;
+//     node->simbolo->value.f_val = value;
+//     node->left = NULL;
+//     node->right = NULL;
+//     return node;
+// }
 
 ASTNode *create_id_node(char *value) {
     ASTNode *node = create_ast_node();
@@ -100,10 +100,10 @@ void print_ast(ASTNode *node, int depth) {
         printf("ID: %s\n", node->simbolo->value.s_val);
         return;
     }
-    if (node->type == NODE_FLOAT) {
-        printf("FLOAT: %f\n", node->simbolo->value.f_val);
-        return;
-    }
+    // if (node->type == NODE_FLOAT) {
+    //     printf("FLOAT: %f\n", node->simbolo->value.f_val);
+    //     return;
+    // }
     if (node->type == NODE_INT) {
         printf("INT: %d\n", node->simbolo->value.i_val);
         return;
