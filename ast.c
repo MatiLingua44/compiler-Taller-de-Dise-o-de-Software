@@ -5,8 +5,10 @@
 #include "ast.h"
 
 ASTNode *create_ast_node() {
-    ASTNode *node = malloc(sizeof(ASTNode));
-    node->simbolo = malloc(sizeof(Simbolo));
+    ASTNode *node = calloc(1, sizeof(ASTNode));
+    if (node) {
+        node->simbolo = calloc(1, sizeof(Simbolo));
+    }
     return node;
 }
 
@@ -39,7 +41,8 @@ ASTNode *create_float_node(float value) {
 ASTNode *create_id_node(char *value) {
     ASTNode *node = create_ast_node();
     node->type = NODE_ID;
-    node->simbolo->value.s_val = strdup(value);
+    node->simbolo->nombre = strdup(value);
+    node->simbolo->value.s_val = node->simbolo->nombre;
     node->left = NULL;
     node->right = NULL;
     return node;

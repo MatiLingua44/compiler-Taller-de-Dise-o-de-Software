@@ -7,6 +7,7 @@
 
 Simbolo *buscar_simbolo(Lista *lista, char *nombre)
 {
+    if (nombre == NULL) return NULL;
     Lista *actual = lista;
 
     while (actual != NULL)
