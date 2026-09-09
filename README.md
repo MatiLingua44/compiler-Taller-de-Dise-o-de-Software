@@ -1,4 +1,4 @@
-# compiler-Taller-de-Dise-o-de-Software
+# compiler-Taller-de-Disenio-de-Software
 
 Para correr este proyecto se necesita tener instalado:
 
@@ -19,7 +19,7 @@ Si es la primera vez que se va a compilar el proyecto hay que darle permiso al a
 
 Solamente hay que dar permiso una vez, despues simplemente correr el siguiente comando en la terminal desde la raiz del proyecto:
 
-- ./compilar
+- ./compilar.sh
 
 # EJECUCION
 Para correr el archivo de prueba, usar el siguiente comando:
