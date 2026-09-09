@@ -1,11 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ast.h"
+#include "semantica.h"
+#include "lista.h"
 
 // Declaramos los elementos externos de Flex y Bison
 extern int yyparse(void);
 extern ASTNode *root;
 extern FILE *yyin; // Puntero de archivo que lee Flex
+
+Lista *tabla_simbolos;
 
 int main(int argc, char *argv[]) {
     // Verificar si el usuario proporcionó la ruta del archivo
@@ -30,6 +34,13 @@ int main(int argc, char *argv[]) {
     if (yyparse() == 0) {
         printf("\n--- Arbol de Sintaxis Abstracta (AST) Generado ---\n");
         print_ast(root, 0);
+
+        if ( check_semantics(root) == 1 ) {
+            printf("Semantica correcta\n");
+        } else {
+            printf("Semantica incorrecta\n");
+        }
+        imprimir_lista(tabla_simbolos);
         
         // Liberar memoria
         free_ast(root);
