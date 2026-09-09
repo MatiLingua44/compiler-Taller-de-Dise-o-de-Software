@@ -10,6 +10,6 @@ flex lex.l
 if %errorlevel% neq 0 (echo ❌ Error en Flex && exit /b %errorlevel%)
 
 echo [GCC] Compilando binarios...
-gcc -Wall -Wextra -g -o compilador main.c bison.tab.c lex.yy.c ast.c
+gcc -Wall -Wextra -g -o compilador main.c bison.tab.c lex.yy.c ast.c lista.c semantica.c assembly.c
 if %errorlevel% neq 0 (echo ❌ Error en GCC && exit /b %errorlevel%)
-echo ✅ Compilacion exitosa.
+echo Compilacion exitosa.
