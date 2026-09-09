@@ -89,6 +89,9 @@ void print_ast(ASTNode *node, int depth) {
         return;
     }
     
+    if (node->type == NODE_SEQ) {
+        printf(";\n");
+    }
     
     if (node->type == NODE_ID) {
         printf("ID: %s\n", node->simbolo->value.s_val);
