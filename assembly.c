@@ -14,12 +14,12 @@ int gen_asm(ASTNode *node) {
             return -1;
             
         case NODE_DECL:
-            printf("  // Declarada variable: %s\n", node->simbolo->nombre);
+            // printf("  // Declarada variable: %s\n", node->simbolo->nombre);
             return -1;
             
         case NODE_ASIG: {
             int right_reg = gen_asm(node->right);
-            printf("  STORE %s, R%d\n", node->left->simbolo->nombre, right_reg);
+            printf("  Store_Mem R%d, %s\n", right_reg, node->left->simbolo->nombre);
             return -1;
         }
         
@@ -27,7 +27,7 @@ int gen_asm(ASTNode *node) {
             int left_reg = gen_asm(node->left);
             int right_reg = gen_asm(node->right);
             int res_reg = temp_count++;
-            printf("  ADD R%d, R%d, R%d\n", res_reg, left_reg, right_reg);
+            printf("  Add_Reg R%d, R%d, R%d\n", left_reg, right_reg, res_reg);
             return res_reg;
         }
         
@@ -35,19 +35,19 @@ int gen_asm(ASTNode *node) {
             int left_reg = gen_asm(node->left);
             int right_reg = gen_asm(node->right);
             int res_reg = temp_count++;
-            printf("  MUL R%d, R%d, R%d\n", res_reg, left_reg, right_reg);
+            printf("  Mul_Reg R%d, R%d, R%d\n", left_reg, right_reg, res_reg);
             return res_reg;
         }
         
         case NODE_INT: {
             int res_reg = temp_count++;
-            printf("  LOAD R%d, %d\n", res_reg, node->simbolo->value.i_val);
+            printf("  Load_Const %d, R%d\n", node->simbolo->value.i_val, res_reg);
             return res_reg;
         }
         
         case NODE_ID: {
             int res_reg = temp_count++;
-            printf("  LOAD R%d, %s\n", res_reg, node->simbolo->nombre);
+            printf("  Load_Mem %s, R%d\n", node->simbolo->nombre, res_reg);
             return res_reg;
         }
         default:
@@ -56,7 +56,7 @@ int gen_asm(ASTNode *node) {
 }
 
 void generate_assembly(ASTNode *node) {
-    printf("\n--- Codigo Assembly ---\n");
+    printf("\n--- Codigo Tres Direcciones ---\n");
     temp_count = 0;
     gen_asm(node);
 }
