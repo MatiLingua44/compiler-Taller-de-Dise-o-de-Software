@@ -1,7 +1,7 @@
 # compiler-Taller-de-Disenio-de-Software
 # Integrantes del Grupo
-Trimboli Ricardo
-Dosantos Agustin
+Trimboli Ricardo,
+Dosantos Agustin,
 Lingua Matias
 
 Para correr este proyecto se necesita tener instalado:
