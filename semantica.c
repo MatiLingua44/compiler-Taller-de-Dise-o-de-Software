@@ -29,6 +29,15 @@ int check_semantics(ASTNode *node) {
             }
             return 1;
         }
+        case NODE_ASIG:{
+            // Verificar si la variable a la que se le asigna un valor existe
+            if (!buscar_simbolo(tabla_simbolos, node->left->simbolo->nombre)) {
+                fprintf(stderr, "Error Semantico: Asignacion a variable no declarada (%s).\n", node->left->simbolo->nombre);
+                return 0;
+            }
+            // Validar recursivamente la expresión que se le está asignando
+            return check_semantics(node->right);
+        }
 /*
 
         case NODE_ASSIGNMENT: {
