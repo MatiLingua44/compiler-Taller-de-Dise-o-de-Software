@@ -38,11 +38,11 @@ int main(int argc, char *argv[]) {
 
         if ( check_semantics(root) == 1 ) {
             printf("Semantica correcta\n");
+            imprimir_lista(tabla_simbolos);
             generate_assembly(root);
         } else {
             printf("Semantica incorrecta\n");
         }
-        imprimir_lista(tabla_simbolos);
         
         // Liberar memoria
         free_ast(root);
