@@ -4,7 +4,7 @@ Trimboli Ricardo,
 Dosantos Agustin,
 Lingua Matias
 
-Para correr este proyecto se necesita tener instalado:
+# Para correr este proyecto se necesita tener instalado:
 
 - flex
 - bison
