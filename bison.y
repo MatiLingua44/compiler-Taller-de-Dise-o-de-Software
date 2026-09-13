@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include "ast.h"
 
-extern FILE *yyin; // Puntero al archivo de entrada de Flex/Bison
-
 int yylex(void);
 void yyerror(const char *s);
 
@@ -13,9 +11,10 @@ ASTNode *root = NULL;
 
 %}
 
+%locations
+
 %union {
     int entero;
-    // float flotante;
     char *texto;
     struct ASTNode *node;
 }
@@ -31,7 +30,6 @@ ASTNode *root = NULL;
 %token RETURN
 
 %token <entero> INTEGER
-// %token <flotante> FLOAT
 %token <texto> ID
 
 %type <node> programa statement statement_list
@@ -55,8 +53,8 @@ statement_list:
     ;
 
 statement:
-    asignacion         { $$ = $1 ;}
-    | declaracion      { $$ = $1 ;}
+    asignacion         { $$ = $1; }
+    | declaracion      { $$ = $1; }
     ;
 
 expresion:
@@ -64,7 +62,6 @@ expresion:
     | expresion MULTIPLICACION expresion            { $$ = create_op_node(NODE_MUL, $1, $3); }
     | PARENTESIS_ABRE expresion PARENTESIS_CIERRA   { $$ = $2; }
     | INTEGER                                       { $$ = create_int_node($1); }
-    // | FLOAT                                         { $$ = create_float_node($1); }
     | ID                                            { $$ = create_id_node($1); }
     ;
 
@@ -78,27 +75,8 @@ declaracion:
     
 %%
 
+// Implementación de yyerror usando la variable global yylloc de Bison
 void yyerror(const char *s) {
-    fprintf(stderr, "Error: %s\n", s);
+    fprintf(stderr, "Error Sintactico en la linea %d, columna %d: %s\n", 
+            yylloc.first_line, yylloc.first_column, s);
 }
-
-/*
-int main(int argc, char **argv) {
-    if (argc > 1) {
-        // Intentar abrir el archivo pasado por argumento
-        FILE *archivo = fopen(argv[1], "r");
-        if (!archivo) {
-            perror(argv[1]);
-            return 1;
-        }
-        yyin = archivo; // Redirigir la entrada de Flex al archivo
-    }
-    
-    // Iniciar el análisis sintáctico
-    yyparse();
-
-    print_ast(root, 0);
-    
-    return 0;
-}
-*/
